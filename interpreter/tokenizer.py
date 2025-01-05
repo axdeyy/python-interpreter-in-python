@@ -14,3 +14,6 @@ class TokenCategory(Enum):
 class Token:
     category: TokenCategory
     value: int | str
+
+def tokenize(source_code: str) -> List[Token]:
+    pass
