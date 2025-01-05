@@ -16,5 +16,10 @@ class Token:
     category: TokenCategory
     value: int | str
 
+@dataclass
+class TokenSpecification:
+    category: TokenCategory
+    regex_pattern: str
+
 def tokenize(source_code: str) -> List[Token]:
     pass
