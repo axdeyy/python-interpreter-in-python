@@ -1,6 +1,7 @@
 # intepreter/tokenizer.py
 
 from enum import Enum, auto
+from dataclasses import dataclass
 
 class TokenCategory(Enum):
     IDENTIFIER = auto()  # Identifiers (e.g. variable names)
