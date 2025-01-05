@@ -10,6 +10,7 @@ class TokenCategory(Enum):
     OPERATOR = auto()    # Operators (e.g '=', '+')
     PAREN = auto()       # Parentheses (e.g '(', ')')
     NEWLINE = auto()     # Line endings
+    MISMATCH = auto()    # Invalid token
 
 @dataclass
 class Token:
