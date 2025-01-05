@@ -9,3 +9,8 @@ class TokenCategory(Enum):
     OPERATOR = auto()    # Operators (e.g '=', '+')
     PAREN = auto()       # Parentheses (e.g '(', ')')
     NEWLINE = auto()     # Line endings
+
+@dataclass
+class Token:
+    category: TokenCategory
+    value: int | str
