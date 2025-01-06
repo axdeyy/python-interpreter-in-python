@@ -15,3 +15,9 @@ literal            ::= NUMBER
 
 '''
 
+from abc import ABC
+from dataclasses import dataclass
+
+@dataclass
+class Expression(ABC):
+    pass
