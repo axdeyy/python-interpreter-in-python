@@ -22,7 +22,7 @@ class TokenSpecification:
     category: TokenCategory
     regex_pattern: str
 
-TOKEN_SPECIFICATIONS: List[TokenSpecification] = [
+TOKEN_SPECIFICATIONS: list[TokenSpecification] = [
     TokenSpecification(TokenCategory.IDENTIFIER, r'[A-Za-z_]\w*'),
     TokenSpecification(TokenCategory.KEYWORD, r'\bprint\b'),  # TODO: add more keywords
     TokenSpecification(TokenCategory.NUMBER, r'\d+'),    
@@ -32,5 +32,5 @@ TOKEN_SPECIFICATIONS: List[TokenSpecification] = [
     TokenSpecification(TokenCategory.MISMATCH, r'.'),
 ]
 
-def tokenize(source_code: str) -> List[Token]:
+def tokenize(source_code: str) -> list[Token]:
     pass
