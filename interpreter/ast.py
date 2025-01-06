@@ -16,7 +16,6 @@ literal            ::= NUMBER
 '''
 
 from abc import ABC
-from ast import expr
 from dataclasses import dataclass
 from lexer import TokenCategory
 
@@ -33,3 +32,8 @@ class Assignment(Statement):
     identifier: TokenCategory.IDENTIFIER
     expression: Expression
 
+@dataclass
+class BinaryExpression(Expression):
+    left: Expression
+    operator: TokenCategory.OPERATOR
+    right: Expression
