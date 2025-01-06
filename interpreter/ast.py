@@ -18,11 +18,16 @@ literal            ::= TokenCategory.NUMBER
 
 from abc import ABC
 from dataclasses import dataclass
+from sre_parse import State
 from lexer import TokenCategory
 
 @dataclass
 class Statement(ABC):
     pass
+
+@dataclass
+class Program:
+    statements: list[Statement]
 
 @dataclass
 class Expression(Statement):
