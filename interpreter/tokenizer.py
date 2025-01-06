@@ -10,6 +10,7 @@ class TokenCategory(Enum):
     OPERATOR = auto()    # Operators (e.g '=', '+')
     PAREN = auto()       # Parentheses (e.g '(', ')')
     NEWLINE = auto()     # Line endings
+    SKIP = auto()        # Whitespace
     MISMATCH = auto()    # Invalid token
 
 @dataclass
@@ -29,6 +30,7 @@ TOKEN_SPECIFICATIONS: list[TokenSpecification] = [
     TokenSpecification(TokenCategory.OPERATOR, r'[+=-]'),
     TokenSpecification(TokenCategory.PAREN, r'[()]'),
     TokenSpecification(TokenCategory.NEWLINE, r'\n'),
+    TokenSpecification(TokenCategory.SKIP, r'\s+'),
     TokenSpecification(TokenCategory.MISMATCH, r'.'),
 ]
 
