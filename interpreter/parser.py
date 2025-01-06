@@ -29,7 +29,7 @@ class Parser:
         operator_token = self._consume(TokenCategory.OPERATOR)
 
         # Error handling for incorrect operator token lexeme
-        if operator_token.lexeme != '+':
+        if operator_token.lexeme != '=':
             raise SyntaxError(f"Could not parse assignment. Expected '=' operator but got {operator_token}")
 
         expression = self._parse_expression()
@@ -61,7 +61,7 @@ class Parser:
         pass
 
     def _peek_next_token(self) -> Token:
-        return (t := self.tokens[self.current_token_idx + 1]) if t < len(self.tokens) else None
+        return self.tokens[i := (self.current_token_idx + 1)] if i < len(self.tokens) else None
     
     def _consume(self, expected_token_category: TokenCategory) -> Token | None:
         token = self.tokens[self.current_token_idx]
