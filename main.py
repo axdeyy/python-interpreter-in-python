@@ -1,6 +1,6 @@
 # main.py
 
-from interpreter.tokenizer import *
+from interpreter.lexer import *
 
 def test_tokenizer():
     source_code = """x = 10
