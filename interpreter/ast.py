@@ -37,3 +37,8 @@ class BinaryExpression(Expression):
     left: Expression
     operator: TokenCategory.OPERATOR
     right: Expression
+
+@dataclass
+class FunctionCall(Expression):
+    function_name: TokenCategory.IDENTIFIER | TokenCategory.KEYWORD
+    arguments: list[Expression]
