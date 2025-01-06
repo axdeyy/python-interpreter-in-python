@@ -1,7 +1,7 @@
 # intepreter/parser.py
 
-from interpreter.ast import Program, Statement
-from lexer import Token
+from interpreter.ast import Program, Statement, Assignment, Expression
+from lexer import Token, TokenCategory
 
 class Parser:
     def __init__(self, tokens: list[Token]):
@@ -15,4 +15,15 @@ class Parser:
         return Program(statements)
 
     def parse_statement(self) -> Statement:
+        token = self.tokens[self.current_token_idx]
+        match token.category:
+            case TokenCategory.IDENTIFIER:
+                if token.lexeme == '=':
+                    return self.parse_assignment()
+            case _:
+                return self.parse_expression()
+    
+    def parse_assignment(self) -> Assignment:
         pass
+
+    def parse_expression(self) -> Expression:
