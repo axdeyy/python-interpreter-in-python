@@ -55,7 +55,8 @@ class Parser:
         pass
 
     def _parse_literal(self) -> Literal:
-        pass
+        token = self._consume(TokenCategory.NUMBER)
+        return Literal(int(token.lexeme))
 
     def _parse_binary_expression(self) -> Literal:
         pass
