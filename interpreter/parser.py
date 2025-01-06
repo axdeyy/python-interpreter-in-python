@@ -16,7 +16,7 @@ class Parser:
 
     def parse_statement(self) -> Statement:
         token = self.tokens[self.current_token_idx]
-        match token.category:
+        match self.peek_next_token().category:
             case TokenCategory.IDENTIFIER:
                 if token.lexeme == '=':
                     return self.parse_assignment()
@@ -27,3 +27,4 @@ class Parser:
         pass
 
     def parse_expression(self) -> Expression:
+        pass
