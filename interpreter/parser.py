@@ -15,7 +15,7 @@ class Parser:
             statements.append(self.parse_statement())
         return Program(statements)
 
-    def parse_statement(self) -> Statement:
+    def _parse_statement(self) -> Statement:
         token = self.tokens[self.current_token_idx]
         match self.peek_next_token().category:
             case TokenCategory.IDENTIFIER:
@@ -24,11 +24,11 @@ class Parser:
             case _:
                 return self.parse_expression()
     
-    def parse_assignment(self) -> Assignment:
+    def _parse_assignment(self) -> Assignment:
         pass
 
-    def parse_expression(self) -> Expression:
+    def _parse_expression(self) -> Expression:
         pass
 
-    def peek_next_token(self) -> Token:
+    def _peek_next_token(self) -> Token:
         return (t := self.tokens[self.current_token_idx + 1]) if t < len(self.tokens) else None
