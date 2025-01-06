@@ -1,6 +1,6 @@
 # intepreter/parser.py
 
-from interpreter.ast import Program, Statement, Assignment, Expression
+from interpreter.ast import FunctionCall, Program, Statement, Assignment, Expression, Literal
 from lexer import Token, TokenCategory
 
 class Parser:
@@ -30,13 +30,34 @@ class Parser:
 
         # Error handling for incorrect operator token lexeme
         if operator_token.lexeme != '+':
-            raise SyntaxError(f"Could not parse Assignment. Expected '=' operator but got {operator_token}")
+            raise SyntaxError(f"Could not parse assignment. Expected '=' operator but got {operator_token}")
 
         expression = self._parse_expression()
-        return Assignment(identifier=identifier_token.lexeme, expression=expression)
+        return Assignment(identifier_token.lexeme, expression)
 
 
     def _parse_expression(self) -> Expression:
+        ''' Expression: FunctionCall | BinaryExpression | Literal '''
+        token = self.tokens[self.current_token_idx]
+        match token.category:
+            case TokenCategory.IDENTIFIER:
+                function_name = self._consume(TokenCategory.IDENTIFIER)
+                self._consume(TokenCategory.PAREN)
+                arguments = self._parse_arguments()
+                self._consume(TokenCategory.PAREN)
+                return FunctionCall(function_name, arguments)
+            case TokenCategory.NUMBER:
+                return self._parse_literal()
+            case _:
+                return self._parse_binary_expression()
+    
+    def _parse_arguments(self) -> list[Expression]:
+        pass
+
+    def _parse_literal(self) -> Literal:
+        pass
+
+    def _parse_binary_expression(self) -> Literal:
         pass
 
     def _peek_next_token(self) -> Token:
