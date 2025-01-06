@@ -54,7 +54,7 @@ class Parser:
     def _parse_arguments(self) -> list[Expression]:
         # Basic single argument parsing
         argument = self._parse_expression()
-        return argument
+        return [argument]
 
     def _parse_literal(self) -> Literal:
         token = self._consume(TokenCategory.NUMBER)
