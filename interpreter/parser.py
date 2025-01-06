@@ -2,7 +2,6 @@
 
 from interpreter.ast import Program, Statement, Assignment, Expression
 from lexer import Token, TokenCategory
-from tkinter.tix import STATUS
 
 class Parser:
     def __init__(self, tokens: list[Token]):
@@ -25,7 +24,17 @@ class Parser:
                 return self.parse_expression()
     
     def _parse_assignment(self) -> Assignment:
-        pass
+        ''' Assignment: IDENTIFIER '=' expression '''
+        identifier_token = self._consume(TokenCategory.IDENTIFIER)
+        operator_token = self._consume(TokenCategory.OPERATOR)
+
+        # Error handling for incorrect operator token lexeme
+        if operator_token.lexeme != '+':
+            raise SyntaxError(f"Expected '=' operator but got {operator_token}")
+
+        expression = self._parse_expression()
+        return Assignment(identifier=identifier_token.lexeme, expression=expression)
+
 
     def _parse_expression(self) -> Expression:
         pass
