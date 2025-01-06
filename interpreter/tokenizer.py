@@ -1,5 +1,6 @@
 # intepreter/tokenizer.py
 
+import re
 from enum import Enum, auto
 from dataclasses import dataclass
 
@@ -35,4 +36,26 @@ TOKEN_SPECIFICATIONS: list[TokenSpecification] = [
 ]
 
 def tokenize(source_code: str) -> list[Token]:
-    pass
+    token_regex_pattern = '|'.join(f"(?P<{spec.category.name}>{spec.regex_pattern})" for spec in TOKEN_SPECIFICATIONS)
+    tokens = []
+
+    for capture in re.finditer(token_regex_pattern, source_code):
+        capture_group, capture_value = capture.lastgroup, capture.group()
+        token_category = TokenCategory[capture_group]
+
+        # Handle mismatched token 
+        if token_category == TokenCategory.MISMATCH:
+            print(tokens)
+            raise SyntaxError(f"Error: Could not find a token category for the given lexeme: {capture_value}")
+        
+        # Handle skip token
+        if token_category == TokenCategory.SKIP:
+            continue
+
+        # Handle numeric token
+        if token_category == TokenCategory.NUMBER:
+            value = int(capture_value)
+        
+        tokens.append(Token(category=token_category, lexeme=capture_value))
+
+    return tokens
