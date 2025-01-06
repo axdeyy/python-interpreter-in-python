@@ -21,11 +21,11 @@ from dataclasses import dataclass
 from lexer import TokenCategory
 
 @dataclass
-class Expression(ABC):
+class Statement(ABC):
     pass
 
 @dataclass
-class Statement(ABC):
+class Expression(Statement):
     pass
 
 @dataclass
