@@ -35,21 +35,23 @@ class Parser:
         expression = self._parse_expression()
         return Assignment(identifier_token.lexeme, expression)
 
-
     def _parse_expression(self) -> Expression:
         ''' Expression: FunctionCall | BinaryExpression | Literal '''
         token = self.tokens[self.current_token_idx]
         match token.category:
             case TokenCategory.IDENTIFIER:
-                function_name = self._consume(TokenCategory.IDENTIFIER)
-                self._consume(TokenCategory.PAREN)
-                arguments = self._parse_arguments()
-                self._consume(TokenCategory.PAREN)
-                return FunctionCall(function_name, arguments)
+                return self._parse_function_call()
             case TokenCategory.NUMBER:
                 return self._parse_literal()
             case _:
                 return self._parse_binary_expression()
+    
+    def _parse_function_call(self) -> FunctionCall:
+        function_name = self._consume(TokenCategory.IDENTIFIER)
+        self._consume(TokenCategory.PAREN)
+        arguments = self._parse_arguments()
+        self._consume(TokenCategory.PAREN)
+        return FunctionCall(function_name, arguments)
     
     def _parse_arguments(self) -> list[Expression]:
         # Basic single argument parsing
