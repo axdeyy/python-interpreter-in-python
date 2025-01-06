@@ -52,7 +52,9 @@ class Parser:
                 return self._parse_binary_expression()
     
     def _parse_arguments(self) -> list[Expression]:
-        pass
+        # Basic single argument parsing
+        argument = self._parse_expression()
+        return argument
 
     def _parse_literal(self) -> Literal:
         token = self._consume(TokenCategory.NUMBER)
