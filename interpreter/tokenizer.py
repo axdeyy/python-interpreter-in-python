@@ -15,7 +15,7 @@ class TokenCategory(Enum):
 @dataclass
 class Token:
     category: TokenCategory
-    value: int | str
+    lexeme: int | str
 
 @dataclass
 class TokenSpecification:
