@@ -32,3 +32,10 @@ class Parser:
 
     def _peek_next_token(self) -> Token:
         return (t := self.tokens[self.current_token_idx + 1]) if t < len(self.tokens) else None
+    
+    def _consume(self, expected_token_category: TokenCategory) -> Token | None:
+        token = self.tokens[self.current_token_idx]
+        if token.category != expected_token_category:
+            raise SyntaxError(f"Expected {expected_token_category}, but got {token.category}")
+        self.current_token_idx += 1
+        return token
