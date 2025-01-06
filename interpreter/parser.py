@@ -1,6 +1,6 @@
 # intepreter/parser.py
 
-from interpreter.ast import FunctionCall, Program, Statement, Assignment, Expression, Literal
+from interpreter.ast import BinaryExpression, FunctionCall, Program, Statement, Assignment, Expression, Literal
 from lexer import Token, TokenCategory
 
 class Parser:
@@ -62,9 +62,17 @@ class Parser:
         token = self._consume(TokenCategory.NUMBER)
         return Literal(int(token.lexeme))
 
-    def _parse_binary_expression(self) -> Literal:
-        pass
-
+    def _parse_binary_expression(self) -> BinaryExpression:
+        left = self._parse_expression()
+        right_token = self._peek_next_token()
+        if not right_token:
+            raise SyntaxError(f"Could not parse binary expression. Operator token doesn't exist")
+        if right_token.category != TokenCategory.OPERATOR:
+            raise SyntaxError(f"Could not parse binary expression. Token could not be matched to Operator")
+        operator = self._consume(TokenCategory.OPERATOR)
+        right = self._parse_expression()
+        return BinaryExpression(left, operator, right)
+    
     def _peek_next_token(self) -> Token:
         return self.tokens[i := (self.current_token_idx + 1)] if i < len(self.tokens) else None
     
