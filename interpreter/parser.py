@@ -30,7 +30,7 @@ class Parser:
 
         # Error handling for incorrect operator token lexeme
         if operator_token.lexeme != '+':
-            raise SyntaxError(f"Expected '=' operator but got {operator_token}")
+            raise SyntaxError(f"Could not parse Assignment. Expected '=' operator but got {operator_token}")
 
         expression = self._parse_expression()
         return Assignment(identifier=identifier_token.lexeme, expression=expression)
