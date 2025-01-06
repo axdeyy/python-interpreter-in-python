@@ -2,6 +2,7 @@
 
 from interpreter.ast import Program, Statement, Assignment, Expression
 from lexer import Token, TokenCategory
+from tkinter.tix import STATUS
 
 class Parser:
     def __init__(self, tokens: list[Token]):
@@ -28,3 +29,6 @@ class Parser:
 
     def parse_expression(self) -> Expression:
         pass
+
+    def peek_next_token(self) -> Token:
+        return (t := self.tokens[self.current_token_idx + 1]) if t < len(self.tokens) else None
