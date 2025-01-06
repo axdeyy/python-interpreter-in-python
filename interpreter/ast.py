@@ -17,6 +17,7 @@ literal            ::= NUMBER
 
 from abc import ABC
 from dataclasses import dataclass
+from pyclbr import Class
 from lexer import TokenCategory
 
 @dataclass
@@ -42,3 +43,7 @@ class BinaryExpression(Expression):
 class FunctionCall(Expression):
     function_name: TokenCategory.IDENTIFIER | TokenCategory.KEYWORD
     arguments: list[Expression]
+
+@dataclass
+class Literal(Expression):
+    value: int | str
