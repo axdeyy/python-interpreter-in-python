@@ -25,6 +25,11 @@ class Expression(ABC):
     pass
 
 @dataclass
-class Assignment:
+class Statement(ABC):
+    pass
+
+@dataclass
+class Assignment(Statement):
     identifier: TokenCategory.IDENTIFIER
     expression: Expression
+
