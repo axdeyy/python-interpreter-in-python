@@ -1,23 +1,23 @@
 # ast.py
 
 '''
-Parser Grammar (BNF):
+Python Subset Grammar (BNF):
 
 program            ::= statement+
 statement          ::= assignment | expression
-assignment         ::= IDENTIFIER '=' expression
+assignment         ::= identifier '=' expression
 expression         ::= function_call | binary_expression | literal
-function_call      ::= IDENTIFIER '(' arguments ')'
+function_call      ::= identifier '(' arguments ')'
 arguments          ::= (expression (',' expression)*)?
 binary_expression  ::= expression operator expression
-operator           ::= '+' | '-' | '*' | '/'
-literal            ::= NUMBER
+identifier         ::= TokenCategory.IDENTIFIER
+operator           ::= TokenCategory.OPERATOR
+literal            ::= TokenCategory.NUMBER
 
 '''
 
 from abc import ABC
 from dataclasses import dataclass
-from pyclbr import Class
 from lexer import TokenCategory
 
 @dataclass
