@@ -54,7 +54,7 @@ def tokenize(source_code: str) -> list[Token]:
 
         # Handle numeric token
         if token_category == TokenCategory.NUMBER:
-            value = int(capture_value)
+            capture_value = int(capture_value)
         
         tokens.append(Token(category=token_category, lexeme=capture_value))
 
