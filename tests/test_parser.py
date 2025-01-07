@@ -97,3 +97,9 @@ def test_parse_binary_expression(
     assert statement.operator.lexeme == expected_operator
     assert isinstance(statement.right, Literal)
     assert statement.right.value == expected_right
+
+
+def test_parse_multiple_statements(tokens: str, num_statements: int) -> None:
+    parser = Parser(tokens)
+    program = parser.parse()
+    assert len(program.statements) == num_statements
