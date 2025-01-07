@@ -17,6 +17,12 @@ from interpreter.lexer import tokenize, Token, TokenCategory
     ]),
     ("\n", [Token(category=TokenCategory.NEWLINE, lexeme="\n")]),
     ("   \t", []),
+    ("print(x)", [
+        Token(category=TokenCategory.KEYWORD, lexeme="print"),
+        Token(category=TokenCategory.PAREN, lexeme="("),
+        Token(category=TokenCategory.IDENTIFIER, lexeme="x"),
+        Token(category=TokenCategory.PAREN, lexeme=")"),
+    ])
 ])
 def test_tokenize_cases(source_code, expected_tokens):
     assert tokenize(source_code) == expected_tokens
