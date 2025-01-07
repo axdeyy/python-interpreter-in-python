@@ -7,11 +7,24 @@ class Parser:
     def __init__(self, tokens: list[Token]):
         self.tokens = tokens
         self.current_token_idx = 0
+
+    def _skip_newlines(self):
+        while (
+            self.current_token_idx < len(self.tokens)
+            and self.tokens[self.current_token_idx].category == TokenCategory.NEWLINE
+        ):
+            self._consume(TokenCategory.NEWLINE)
     
     def parse(self) -> Program:
         statements = []
+
+        # Consume leading empty new lines
+        self._skip_newlines()
+
         while self.current_token_idx < len(self.tokens):
-            statements.append(self.parse_statement())
+            statements.append(self._parse_statement())
+            self._skip_newlines()  # Consume empty lines between statements
+
         return Program(statements)
 
     def _parse_statement(self) -> Statement:
