@@ -34,6 +34,7 @@ def test_parse_assignment(
     assert isinstance(statement.expression, Literal)
     assert statement.expression.value == expected_value
 
+
 @pytest.mark.parametrize("tokens, expected_function, expected_argument", [
     (
         [Token(lexeme="print", category=TokenCategory.KEYWORD),
@@ -64,6 +65,7 @@ def test_parse_function_call(
     assert len(statement.arguments) == 1
     assert isinstance(statement.arguments[0], Literal)
     assert statement.arguments[0].value == expected_argument
+
 
 @pytest.mark.parametrize("tokens, expected_left, expected_operator, expected_right", [
     (
