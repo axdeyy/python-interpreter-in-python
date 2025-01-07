@@ -2,7 +2,7 @@
 
 from re import A
 import pytest
-from interpreter.ast import Assignment, FunctionCall, Literal
+from interpreter.ast import Assignment, BinaryExpression, FunctionCall, Literal, Variable
 from interpreter.lexer import Token, TokenCategory
 from interpreter.parser import Parser
 
@@ -64,3 +64,21 @@ def test_parse_function_call(
     assert len(statement.arguments) == 1
     assert isinstance(statement.arguments[0], Literal)
     assert statement.arguments[0].value == expected_argument
+
+
+def test_parse_binary_expression(
+    tokens: list[Token],
+    expected_left: str,
+    expected_operator: str,
+    expected_right: int
+) -> None:
+    parser = Parser(tokens)
+    program = parser.parse()
+    statement = program.statements[0]
+
+    assert isinstance(statement, BinaryExpression)
+    assert isinstance(statement.left, Variable)
+    assert statement.left.name.lexeme == expected_left
+    assert statement.operator.lexeme == expected_operator
+    assert isinstance(statement.right, Literal)
+    assert statement.right.value == expected_right
