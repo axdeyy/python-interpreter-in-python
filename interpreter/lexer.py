@@ -45,7 +45,6 @@ def tokenize(source_code: str) -> list[Token]:
 
         # Handle mismatched token 
         if token_category == TokenCategory.MISMATCH:
-            print(tokens)
             raise SyntaxError(f"Error: Could not find a token category for the given lexeme: {capture_value}")
         
         # Handle skip token
