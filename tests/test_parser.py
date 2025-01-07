@@ -34,7 +34,15 @@ def test_parse_assignment(
     assert isinstance(statement.expression, Literal)
     assert statement.expression.value == expected_value
 
-
+@pytest.mark.parametrize("tokens, expected_function, expected_argument", [
+    (
+        [Token(lexeme="print", category=TokenCategory.KEYWORD),
+         Token(lexeme="(", category=TokenCategory.PAREN),
+         Token(lexeme="2", category=TokenCategory.NUMBER),
+         Token(lexeme=")", category=TokenCategory.PAREN)],
+        "print", 2
+    )
+])
 def test_parse_function_call(
     tokens: list[Token],
     expected_function: str,
