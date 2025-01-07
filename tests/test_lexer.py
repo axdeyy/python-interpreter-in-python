@@ -11,6 +11,10 @@ from interpreter.lexer import tokenize, Token, TokenCategory
         Token(category=TokenCategory.OPERATOR, lexeme="-"),
         Token(category=TokenCategory.OPERATOR, lexeme="=")
     ]),
+        ("( )", [
+        Token(category=TokenCategory.PAREN, lexeme="("),
+        Token(category=TokenCategory.PAREN, lexeme=")")
+    ]),
 ])
 def test_tokenize_cases(source_code, expected_tokens):
     assert tokenize(source_code) == expected_tokens
