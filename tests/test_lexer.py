@@ -5,7 +5,9 @@ from interpreter.lexer import tokenize, Token, TokenCategory
 
 @pytest.mark.parametrize("source_code, expected_tokens", [
     ("print", [Token(category=TokenCategory.KEYWORD, lexeme="print")]),
-    ("variable_name", [Token(category=TokenCategory.IDENTIFIER, lexeme="variable_name")]),
+    ("variable_name", [
+        Token(category=TokenCategory.IDENTIFIER, lexeme="variable_name")
+    ]),
     ("+ - =", [
         Token(category=TokenCategory.OPERATOR, lexeme="+"),
         Token(category=TokenCategory.OPERATOR, lexeme="-"),
@@ -44,5 +46,7 @@ from interpreter.lexer import tokenize, Token, TokenCategory
             Token(category=TokenCategory.NEWLINE, lexeme="\n")
     ]),
 ])
-def test_tokenize_cases(source_code: str, expected_tokens: list[Token]) -> None:
+def test_tokenize_cases(
+    source_code: str, expected_tokens: list[Token]
+) -> None:
     assert tokenize(source_code) == expected_tokens
