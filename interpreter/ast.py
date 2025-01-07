@@ -18,7 +18,6 @@ literal            ::= TokenCategory.NUMBER
 
 from abc import ABC
 from dataclasses import dataclass
-from os import name
 from .lexer import Token
 
 @dataclass
