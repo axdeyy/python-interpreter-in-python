@@ -48,16 +48,31 @@ class Parser:
     def _parse_expression(self) -> Expression:
         ''' Expression: FunctionCall | BinaryExpression | Literal '''
         token = self.tokens[self.current_token_idx]
+        left = Expression()
         match token.category:
+            case TokenCategory.KEYWORD:
+                left = self._parse_function_call(True)
             case TokenCategory.IDENTIFIER:
-                return self._parse_function_call()
+                if self._peek_next_token() and self._peek_next_token().lexeme == '(':
+                    left = self._parse_function_call(False)
+                else:
+                    left = self._parse_variable()
             case TokenCategory.NUMBER:
-                return self._parse_literal()
-            case _:
-                return self._parse_binary_expression()
-    
-    def _parse_function_call(self) -> FunctionCall:
-        function_name = self._consume(TokenCategory.IDENTIFIER)
+                left = self._parse_literal()
+        
+        # Check for binary expression
+        if self.current_token_idx < len(self.tokens):
+            next_token = self.tokens[self.current_token_idx]
+            if next_token and next_token.category == TokenCategory.OPERATOR:
+                operator = self._consume(TokenCategory.OPERATOR)
+                right = self._parse_expression()
+                return BinaryExpression(left, operator, right)
+        
+        return left
+
+
+    def _parse_function_call(self, keyword: bool) -> FunctionCall:
+        function_name = self._consume(TokenCategory.KEYWORD if keyword else TokenCategory.IDENTIFIER)
         self._consume(TokenCategory.PAREN)
         arguments = self._parse_arguments()
         self._consume(TokenCategory.PAREN)
