@@ -83,6 +83,10 @@ class Parser:
         argument = self._parse_expression()
         return [argument]
 
+    def _parse_variable(self) -> Variable:
+        token = self._consume(TokenCategory.IDENTIFIER)
+        return Variable(token)
+
     def _parse_literal(self) -> Literal:
         token = self._consume(TokenCategory.NUMBER)
         return Literal(int(token.lexeme))
