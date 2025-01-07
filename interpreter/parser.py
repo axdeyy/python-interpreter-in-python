@@ -93,7 +93,7 @@ class Parser:
 
     
     def _peek_next_token(self) -> Token:
-        return self.tokens[i := (self.current_token_idx + 1)] if i < len(self.tokens) else None
+        return self.tokens[self.current_token_idx + 1] if self.current_token_idx + 1 < len(self.tokens) else None
     
     def _consume(self, expected_token_category: TokenCategory) -> Token | None:
         token = self.tokens[self.current_token_idx]
