@@ -65,7 +65,14 @@ def test_parse_function_call(
     assert isinstance(statement.arguments[0], Literal)
     assert statement.arguments[0].value == expected_argument
 
-
+@pytest.mark.parametrize("tokens, expected_left, expected_operator, expected_right", [
+    (
+        [Token(lexeme="x", category=TokenCategory.IDENTIFIER),
+         Token(lexeme="+", category=TokenCategory.OPERATOR),
+         Token(lexeme="2", category=TokenCategory.NUMBER)],
+        "x", "+", 2
+    )
+])
 def test_parse_binary_expression(
     tokens: list[Token],
     expected_left: str,
