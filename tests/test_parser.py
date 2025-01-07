@@ -41,6 +41,13 @@ def test_parse_assignment(
          Token(lexeme="2", category=TokenCategory.NUMBER),
          Token(lexeme=")", category=TokenCategory.PAREN)],
         "print", 2
+    ),
+    (
+        [Token(lexeme="sum", category=TokenCategory.KEYWORD),
+         Token(lexeme="(", category=TokenCategory.PAREN),
+         Token(lexeme="3", category=TokenCategory.NUMBER),
+         Token(lexeme=")", category=TokenCategory.PAREN)],
+        "sum", 3
     )
 ])
 def test_parse_function_call(
