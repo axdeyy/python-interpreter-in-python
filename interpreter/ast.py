@@ -6,7 +6,7 @@ Python Subset Grammar (BNF):
 program            ::= statement+
 statement          ::= assignment | expression
 assignment         ::= identifier '=' expression
-expression         ::= function_call | binary_expression | literal
+expression         ::= function_call | binary_expression | identifier | literal
 function_call      ::= identifier '(' arguments ')'
 arguments          ::= (expression (',' expression)*)?
 binary_expression  ::= expression operator expression
@@ -18,8 +18,7 @@ literal            ::= TokenCategory.NUMBER
 
 from abc import ABC
 from dataclasses import dataclass
-from sre_parse import State
-from lexer import TokenCategory
+from .lexer import Token, TokenCategory
 
 @dataclass
 class Statement(ABC):
@@ -35,18 +34,18 @@ class Expression(Statement):
 
 @dataclass
 class Assignment(Statement):
-    identifier: TokenCategory.IDENTIFIER
+    identifier: Token
     expression: Expression
 
 @dataclass
 class BinaryExpression(Expression):
     left: Expression
-    operator: TokenCategory.OPERATOR
+    operator: Token
     right: Expression
 
 @dataclass
 class FunctionCall(Expression):
-    function_name: TokenCategory.IDENTIFIER | TokenCategory.KEYWORD
+    function_name: Token
     arguments: list[Expression]
 
 @dataclass
