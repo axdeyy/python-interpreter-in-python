@@ -18,7 +18,8 @@ literal            ::= TokenCategory.NUMBER
 
 from abc import ABC
 from dataclasses import dataclass
-from .lexer import Token, TokenCategory
+from os import name
+from .lexer import Token
 
 @dataclass
 class Statement(ABC):
@@ -45,8 +46,12 @@ class BinaryExpression(Expression):
 
 @dataclass
 class FunctionCall(Expression):
-    function_name: Token
+    name: Token
     arguments: list[Expression]
+
+@dataclass
+class Variable(Expression):
+    name: Token
 
 @dataclass
 class Literal(Expression):
