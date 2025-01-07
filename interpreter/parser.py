@@ -72,7 +72,9 @@ class Parser:
 
 
     def _parse_function_call(self, keyword: bool) -> FunctionCall:
-        function_name = self._consume(TokenCategory.KEYWORD if keyword else TokenCategory.IDENTIFIER)
+        function_name = self._consume(
+            TokenCategory.KEYWORD if keyword else TokenCategory.IDENTIFIER
+            )
         self._consume(TokenCategory.PAREN)
         arguments = self._parse_arguments()
         self._consume(TokenCategory.PAREN)
@@ -93,7 +95,11 @@ class Parser:
 
     
     def _peek_next_token(self) -> Token:
-        return self.tokens[self.current_token_idx + 1] if self.current_token_idx + 1 < len(self.tokens) else None
+        return (
+            self.tokens[self.current_token_idx + 1]
+            if self.current_token_idx + 1 < len(self.tokens)
+            else None
+        )
     
     def _consume(self, expected_token_category: TokenCategory) -> Token | None:
         token = self.tokens[self.current_token_idx]
