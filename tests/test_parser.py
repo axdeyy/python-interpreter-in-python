@@ -98,7 +98,20 @@ def test_parse_binary_expression(
     assert isinstance(statement.right, Literal)
     assert statement.right.value == expected_right
 
-
+@pytest.mark.parametrize("tokens, num_statements", [
+    (
+        [
+            Token(lexeme="x", category=TokenCategory.IDENTIFIER),
+            Token(lexeme="=", category=TokenCategory.OPERATOR),
+            Token(lexeme="2", category=TokenCategory.NUMBER),
+            Token(lexeme="print", category=TokenCategory.KEYWORD),
+            Token(lexeme="(", category=TokenCategory.PAREN),
+            Token(lexeme="x", category=TokenCategory.IDENTIFIER),
+            Token(lexeme=")", category=TokenCategory.PAREN),
+        ],
+        2  # Two statements: assignment and function call
+    )
+])
 def test_parse_multiple_statements(tokens: str, num_statements: int) -> None:
     parser = Parser(tokens)
     program = parser.parse()
