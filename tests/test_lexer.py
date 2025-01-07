@@ -50,3 +50,10 @@ def test_tokenize_cases(
     source_code: str, expected_tokens: list[Token]
 ) -> None:
     assert tokenize(source_code) == expected_tokens
+
+    
+def test_tokenize_exceptions(
+        source_code: str, expected_exception: Exception, message: str
+) -> None:
+    with pytest.raises(expected_exception, match=message):
+        tokenize(source_code)
