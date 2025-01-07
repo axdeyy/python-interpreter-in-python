@@ -25,8 +25,8 @@ class TokenSpecification:
     regex_pattern: str
 
 TOKEN_SPECIFICATIONS: list[TokenSpecification] = [
-    TokenSpecification(TokenCategory.IDENTIFIER, r'[A-Za-z_]\w*'),
     TokenSpecification(TokenCategory.KEYWORD, r'\bprint\b'),  # TODO: add more keywords
+    TokenSpecification(TokenCategory.IDENTIFIER, r'[A-Za-z_]\w*'),
     TokenSpecification(TokenCategory.NUMBER, r'\d+'),    
     TokenSpecification(TokenCategory.OPERATOR, r'[+=-]'),
     TokenSpecification(TokenCategory.PAREN, r'[()]'),
