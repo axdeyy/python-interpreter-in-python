@@ -1,6 +1,5 @@
 # test/test_parser.py
 
-from re import A
 import pytest
 from interpreter.ast import Assignment, BinaryExpression, FunctionCall, Literal, Variable
 from interpreter.lexer import Token, TokenCategory
