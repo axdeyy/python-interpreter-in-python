@@ -7,4 +7,4 @@ To start with, the plan is to implement a fully functional interpreter for a ver
 - Simple output: `print`
 - Input handling: `input`
 
-Currently working on executor.
+Currently working on executor
