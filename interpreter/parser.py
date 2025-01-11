@@ -53,7 +53,7 @@ class Parser:
             case TokenCategory.KEYWORD:
                 left = self._parse_function_call(True)
             case TokenCategory.IDENTIFIER:
-                if self._peek_next_token() and self._peek_next_token().lexeme == '(':
+                if self._peek_next_token() and self._peek_next_token().category == TokenCategory.OPEN_PAREN:
                     left = self._parse_function_call(False)
                 else:
                     left = self._parse_variable()
@@ -75,15 +75,15 @@ class Parser:
         function_name = self._consume(
             TokenCategory.KEYWORD if keyword else TokenCategory.IDENTIFIER
             )
-        self._consume(TokenCategory.PAREN)
+        self._consume(TokenCategory.OPEN_PAREN)
         arguments = self._parse_arguments()
-        self._consume(TokenCategory.PAREN)
+        self._consume(TokenCategory.CLOSE_PAREN)
         return FunctionCall(function_name, arguments)
     
     def _parse_arguments(self) -> list[Expression]:
         # Parse list of arguments
         arguments = [self._parse_expression()]
-        while self.tokens[self.current_token_idx].category != TokenCategory.PAREN:
+        while self.tokens[self.current_token_idx].category != TokenCategory.CLOSE_PAREN:
             self._consume(TokenCategory.COMMA)
             arguments.append(self._parse_expression())
         return arguments
