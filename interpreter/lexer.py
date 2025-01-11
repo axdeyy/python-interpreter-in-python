@@ -3,6 +3,7 @@
 import re
 from enum import Enum, auto
 from dataclasses import dataclass
+import token
 
 class TokenCategory(Enum):
     IDENTIFIER = auto()   # Identifiers (e.g. variable names)
@@ -31,7 +32,8 @@ TOKEN_SPECIFICATIONS: list[TokenSpecification] = [
     TokenSpecification(TokenCategory.IDENTIFIER, r'[A-Za-z_]\w*'),
     TokenSpecification(TokenCategory.NUMBER, r'\d+'),    
     TokenSpecification(TokenCategory.OPERATOR, r'[+=-]'),
-    TokenSpecification(TokenCategory.PAREN, r'[()]'),
+    TokenSpecification(TokenCategory.OPEN_PAREN, r'\('),
+    TokenSpecification(TokenCategory.CLOSE_PAREN, r'\)'),
     TokenSpecification(TokenCategory.NEWLINE, r'\n'),
     TokenSpecification(TokenCategory.SKIP, r'\s+'),
     TokenSpecification(TokenCategory.COMMA, r','),
