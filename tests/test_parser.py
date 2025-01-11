@@ -79,20 +79,22 @@ def test_parse_function_call(
         assert a.value == expected_arguments[i]
 
 
-@pytest.mark.parametrize("tokens, expected_left, expected_operator, expected_right", [
-    (
-        [Token(lexeme="x", category=TokenCategory.IDENTIFIER),
-         Token(lexeme="+", category=TokenCategory.OPERATOR),
-         Token(lexeme="2", category=TokenCategory.NUMBER)],
-        "x", "+", 2
-    ),
-    (
-        [Token(lexeme="a", category=TokenCategory.IDENTIFIER),
-         Token(lexeme="-", category=TokenCategory.OPERATOR),
-         Token(lexeme="3", category=TokenCategory.NUMBER)],
-        "a", "-", 3
-    )
-])
+@pytest.mark.parametrize(
+    "tokens, expected_left, expected_operator, expected_right", [
+        (
+            [Token(lexeme="x", category=TokenCategory.IDENTIFIER),
+             Token(lexeme="+", category=TokenCategory.OPERATOR),
+             Token(lexeme="2", category=TokenCategory.NUMBER)],
+            "x", "+", 2
+        ),
+        (
+            [Token(lexeme="a", category=TokenCategory.IDENTIFIER),
+             Token(lexeme="-", category=TokenCategory.OPERATOR),
+             Token(lexeme="3", category=TokenCategory.NUMBER)],
+            "a", "-", 3
+        )
+    ]
+)
 def test_parse_binary_expression(
     tokens: list[Token],
     expected_left: str,
