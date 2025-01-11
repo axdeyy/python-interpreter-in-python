@@ -5,15 +5,16 @@ from enum import Enum, auto
 from dataclasses import dataclass
 
 class TokenCategory(Enum):
-    IDENTIFIER = auto()  # Identifiers (e.g. variable names)
-    KEYWORD = auto()     # Reserved keywords (e.g `print`)
-    NUMBER = auto()      # Numeric literals (e.g 10)
-    OPERATOR = auto()    # Operators (e.g '=', '+')
-    PAREN = auto()       # Parentheses (e.g '(', ')')
-    COMMA = auto()       # Commas (e.g argument delimiters)
-    NEWLINE = auto()     # Line endings
-    SKIP = auto()        # Whitespace
-    MISMATCH = auto()    # Invalid token
+    IDENTIFIER = auto()   # Identifiers (e.g. variable names)
+    KEYWORD = auto()      # Reserved keywords (e.g `print`)
+    NUMBER = auto()       # Numeric literals (e.g 10)
+    OPERATOR = auto()     # Operators (e.g '=', '+')
+    OPEN_PAREN = auto()   # Open parenthesis
+    CLOSE_PAREN = auto()  # Close parenthesis
+    COMMA = auto()        # Commas (e.g argument delimiters)
+    NEWLINE = auto()      # Line endings
+    SKIP = auto()         # Whitespace
+    MISMATCH = auto()     # Invalid token
 
 @dataclass
 class Token:
