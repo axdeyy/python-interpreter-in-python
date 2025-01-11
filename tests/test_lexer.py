@@ -14,24 +14,24 @@ from interpreter.lexer import tokenize, Token, TokenCategory
         Token(category=TokenCategory.OPERATOR, lexeme="=")
     ]),
         ("( )", [
-        Token(category=TokenCategory.PAREN, lexeme="("),
-        Token(category=TokenCategory.PAREN, lexeme=")")
+        Token(category=TokenCategory.OPEN_PAREN, lexeme="("),
+        Token(category=TokenCategory.CLOSE_PAREN, lexeme=")")
     ]),
     ("\n", [Token(category=TokenCategory.NEWLINE, lexeme="\n")]),
     ("   \t", []),
     ("f(x, y)", [
         Token(category=TokenCategory.IDENTIFIER, lexeme="f"),
-        Token(category=TokenCategory.PAREN, lexeme="("),
+        Token(category=TokenCategory.OPEN_PAREN, lexeme="("),
         Token(category=TokenCategory.IDENTIFIER, lexeme="x"),
         Token(category=TokenCategory.COMMA, lexeme=","),
         Token(category=TokenCategory.IDENTIFIER, lexeme="y"),
-        Token(category=TokenCategory.PAREN, lexeme=")"),
+        Token(category=TokenCategory.CLOSE_PAREN, lexeme=")"),
     ]),
     ("print(x)", [
         Token(category=TokenCategory.KEYWORD, lexeme="print"),
-        Token(category=TokenCategory.PAREN, lexeme="("),
+        Token(category=TokenCategory.OPEN_PAREN, lexeme="("),
         Token(category=TokenCategory.IDENTIFIER, lexeme="x"),
-        Token(category=TokenCategory.PAREN, lexeme=")"),
+        Token(category=TokenCategory.CLOSE_PAREN, lexeme=")"),
     ]),
     ("x = 10\n", [
         Token(category=TokenCategory.IDENTIFIER, lexeme="x"),
