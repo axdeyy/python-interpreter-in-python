@@ -81,9 +81,12 @@ class Parser:
         return FunctionCall(function_name, arguments)
     
     def _parse_arguments(self) -> list[Expression]:
-        # Basic single argument parsing
-        argument = self._parse_expression()
-        return [argument]
+        # Parse list of arguments
+        arguments = [self._parse_expression()]
+        while self.tokens[self.current_token_idx].category != TokenCategory.PAREN:
+            self._consume(TokenCategory.COMMA)
+            arguments.append(self._parse_expression())
+        return arguments
 
     def _parse_variable(self) -> Variable:
         token = self._consume(TokenCategory.IDENTIFIER)
