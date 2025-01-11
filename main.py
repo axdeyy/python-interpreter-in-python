@@ -5,14 +5,15 @@ from interpreter.parser import *
 
 def test_tokenizer():
     source_code = """
-    z = 0
+    x = 0
+    y = 10
 
-    f(x)
+    f(x, y)
     
-    x = 2 + 3 + 2
+    z = 2 + 3 + x + y
     print(x)
 
-    print(2)
+    print(z)
     
     """
 
