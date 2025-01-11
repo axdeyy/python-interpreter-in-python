@@ -1,6 +1,9 @@
 # intepreter/parser.py
 
-from interpreter.ast import BinaryExpression, FunctionCall, Program, Statement, Assignment, Expression, Literal, Variable
+from interpreter.ast import (
+    BinaryExpression, FunctionCall, Program, Statement,
+    Assignment, Expression, Literal, Variable
+)
 from .lexer import Token, TokenCategory
 
 class Parser:
@@ -11,7 +14,8 @@ class Parser:
     def _skip_newlines(self):
         while (
             self.current_token_idx < len(self.tokens)
-            and self.tokens[self.current_token_idx].category == TokenCategory.NEWLINE
+            and self.tokens[self.current_token_idx].category
+            == TokenCategory.NEWLINE
         ):
             self._consume(TokenCategory.NEWLINE)
     
@@ -29,7 +33,10 @@ class Parser:
 
     def _parse_statement(self) -> Statement:
         token = self.tokens[self.current_token_idx]
-        if token.category == TokenCategory.IDENTIFIER and self._peek_next_token().lexeme == '=':
+        if (
+            token.category == TokenCategory.IDENTIFIER 
+            and self._peek_next_token().lexeme == '='
+        ):
             return self._parse_assignment()
         return self._parse_expression()
     
@@ -40,7 +47,10 @@ class Parser:
 
         # Error handling for incorrect operator token lexeme
         if operator_token.lexeme != '=':
-            raise SyntaxError(f"Could not parse assignment. Expected '=' operator but got {operator_token}")
+            raise SyntaxError(
+                "Could not parse assignment. Expected '=' operator but got"
+                f"{operator_token}"
+                )
 
         expression = self._parse_expression()
         return Assignment(identifier_token.lexeme, expression)
@@ -53,7 +63,11 @@ class Parser:
             case TokenCategory.KEYWORD:
                 left = self._parse_function_call(True)
             case TokenCategory.IDENTIFIER:
-                if self._peek_next_token() and self._peek_next_token().category == TokenCategory.OPEN_PAREN:
+                if (
+                    self._peek_next_token()
+                    and self._peek_next_token().category
+                    == TokenCategory.OPEN_PAREN
+                ):
                     left = self._parse_function_call(False)
                 else:
                     left = self._parse_variable()
@@ -74,7 +88,7 @@ class Parser:
     def _parse_function_call(self, keyword: bool) -> FunctionCall:
         function_name = self._consume(
             TokenCategory.KEYWORD if keyword else TokenCategory.IDENTIFIER
-            )
+        )
         self._consume(TokenCategory.OPEN_PAREN)
         arguments = self._parse_arguments()
         self._consume(TokenCategory.CLOSE_PAREN)
@@ -83,7 +97,10 @@ class Parser:
     def _parse_arguments(self) -> list[Expression]:
         # Parse list of arguments
         arguments = [self._parse_expression()]
-        while self.tokens[self.current_token_idx].category != TokenCategory.CLOSE_PAREN:
+        while (
+            self.tokens[self.current_token_idx].category
+            != TokenCategory.CLOSE_PAREN
+        ):
             self._consume(TokenCategory.COMMA)
             arguments.append(self._parse_expression())
         return arguments
@@ -104,9 +121,14 @@ class Parser:
             else None
         )
     
-    def _consume(self, expected_token_category: TokenCategory) -> Token | None:
+    def _consume(
+            self, expected_token_category: TokenCategory
+    ) -> Token | None:
         token = self.tokens[self.current_token_idx]
         if token.category != expected_token_category:
-            raise SyntaxError(f"Expected {expected_token_category}, but got {token.category}")
+            raise SyntaxError(
+                f"Expected {expected_token_category}"
+                f", but got {token.category}"
+            )
         self.current_token_idx += 1
         return token
