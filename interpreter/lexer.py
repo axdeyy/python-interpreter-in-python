@@ -33,6 +33,7 @@ TOKEN_SPECIFICATIONS: list[TokenSpecification] = [
     TokenSpecification(TokenCategory.PAREN, r'[()]'),
     TokenSpecification(TokenCategory.NEWLINE, r'\n'),
     TokenSpecification(TokenCategory.SKIP, r'\s+'),
+    TokenSpecification(TokenCategory.COMMA, r','),
     TokenSpecification(TokenCategory.MISMATCH, r'.'),
 ]
 
