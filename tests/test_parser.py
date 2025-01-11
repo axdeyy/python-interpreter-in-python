@@ -3,7 +3,9 @@
 from ast import arguments
 from multiprocessing.reduction import steal_handle
 import pytest
-from interpreter.ast import Assignment, BinaryExpression, FunctionCall, Literal, Variable
+from interpreter.ast import (
+    Assignment, BinaryExpression, FunctionCall, Literal, Variable
+)
 from interpreter.lexer import Token, TokenCategory
 from interpreter.parser import Parser
 
