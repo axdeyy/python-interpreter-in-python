@@ -10,6 +10,7 @@ class TokenCategory(Enum):
     NUMBER = auto()      # Numeric literals (e.g 10)
     OPERATOR = auto()    # Operators (e.g '=', '+')
     PAREN = auto()       # Parentheses (e.g '(', ')')
+    COMMA = auto()       # Commas (e.g argument delimiters)
     NEWLINE = auto()     # Line endings
     SKIP = auto()        # Whitespace
     MISMATCH = auto()    # Invalid token
