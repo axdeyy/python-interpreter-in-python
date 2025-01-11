@@ -28,7 +28,8 @@ class TokenSpecification:
     regex_pattern: str
 
 TOKEN_SPECIFICATIONS: list[TokenSpecification] = [
-    TokenSpecification(TokenCategory.KEYWORD, r'\bprint\b'),  # TODO: add more keywords
+    # TODO: add more keywords
+    TokenSpecification(TokenCategory.KEYWORD, r'\bprint\b'),
     TokenSpecification(TokenCategory.IDENTIFIER, r'[A-Za-z_]\w*'),
     TokenSpecification(TokenCategory.NUMBER, r'\d+'),    
     TokenSpecification(TokenCategory.OPERATOR, r'[+=-]'),
@@ -41,7 +42,10 @@ TOKEN_SPECIFICATIONS: list[TokenSpecification] = [
 ]
 
 def tokenize(source_code: str) -> list[Token]:
-    token_regex_pattern = '|'.join(f"(?P<{spec.category.name}>{spec.regex_pattern})" for spec in TOKEN_SPECIFICATIONS)
+    token_regex_pattern = '|'.join(
+        f"(?P<{spec.category.name}>{spec.regex_pattern})"
+        for spec in TOKEN_SPECIFICATIONS
+    )
     tokens = []
 
     for capture in re.finditer(token_regex_pattern, source_code):
@@ -50,8 +54,11 @@ def tokenize(source_code: str) -> list[Token]:
 
         # Handle mismatched token 
         if token_category == TokenCategory.MISMATCH:
-            raise SyntaxError(f"Error: Could not find a token category for the given lexeme: {capture_value}")
-        
+            raise SyntaxError(
+                "Error: Could not find a token category for the lexeme: "
+                f"{capture_value}"
+            )
+
         # Handle skip token
         if token_category == TokenCategory.SKIP:
             continue
