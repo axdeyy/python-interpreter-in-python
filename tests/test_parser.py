@@ -1,5 +1,7 @@
 # test/test_parser.py
 
+from ast import arguments
+from multiprocessing.reduction import steal_handle
 import pytest
 from interpreter.ast import Assignment, BinaryExpression, FunctionCall, Literal, Variable
 from interpreter.lexer import Token, TokenCategory
@@ -34,26 +36,26 @@ def test_parse_assignment(
     assert statement.expression.value == expected_value
 
 
-@pytest.mark.parametrize("tokens, expected_function, expected_argument", [
+@pytest.mark.parametrize("tokens, expected_function, expected_arguments", [
     (
         [Token(lexeme="print", category=TokenCategory.KEYWORD),
          Token(lexeme="(", category=TokenCategory.PAREN),
          Token(lexeme="2", category=TokenCategory.NUMBER),
          Token(lexeme=")", category=TokenCategory.PAREN)],
-        "print", 2
+        "print", [2]
     ),
     (
         [Token(lexeme="sum", category=TokenCategory.KEYWORD),
          Token(lexeme="(", category=TokenCategory.PAREN),
          Token(lexeme="3", category=TokenCategory.NUMBER),
          Token(lexeme=")", category=TokenCategory.PAREN)],
-        "sum", 3
+        "sum", [3]
     )
 ])
 def test_parse_function_call(
     tokens: list[Token],
     expected_function: str,
-    expected_argument: int
+    expected_arguments: list[int]
 ) -> None:
     parser = Parser(tokens)
     program = parser.parse()
@@ -61,9 +63,11 @@ def test_parse_function_call(
 
     assert isinstance(statement, FunctionCall)
     assert statement.name.lexeme == expected_function
-    assert len(statement.arguments) == 1
-    assert isinstance(statement.arguments[0], Literal)
-    assert statement.arguments[0].value == expected_argument
+    assert len(statement.arguments) == len(expected_arguments)
+    for a in statement.arguments:
+        assert isinstance(a, Literal)
+    for i, a in enumerate(statement.arguments):
+        assert a.value == expected_arguments[i]
 
 
 @pytest.mark.parametrize("tokens, expected_left, expected_operator, expected_right", [
