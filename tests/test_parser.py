@@ -39,25 +39,25 @@ def test_parse_assignment(
 @pytest.mark.parametrize("tokens, expected_function, expected_arguments", [
     (
         [Token(lexeme="print", category=TokenCategory.KEYWORD),
-         Token(lexeme="(", category=TokenCategory.PAREN),
+         Token(lexeme="(", category=TokenCategory.OPEN_PAREN),
          Token(lexeme="2", category=TokenCategory.NUMBER),
-         Token(lexeme=")", category=TokenCategory.PAREN)],
+         Token(lexeme=")", category=TokenCategory.CLOSE_PAREN)],
         "print", [2]
     ),
     (
         [Token(lexeme="sum", category=TokenCategory.KEYWORD),
-         Token(lexeme="(", category=TokenCategory.PAREN),
+         Token(lexeme="(", category=TokenCategory.OPEN_PAREN),
          Token(lexeme="3", category=TokenCategory.NUMBER),
-         Token(lexeme=")", category=TokenCategory.PAREN)],
+         Token(lexeme=")", category=TokenCategory.CLOSE_PAREN)],
         "sum", [3]
     ),
     (
         [Token(category=TokenCategory.IDENTIFIER, lexeme="sum"),
-        Token(category=TokenCategory.PAREN, lexeme="("),
+        Token(category=TokenCategory.OPEN_PAREN, lexeme="("),
         Token(category=TokenCategory.NUMBER, lexeme=1),
         Token(category=TokenCategory.COMMA, lexeme=","),
         Token(category=TokenCategory.NUMBER, lexeme=2),
-        Token(category=TokenCategory.PAREN, lexeme=")")],
+        Token(category=TokenCategory.CLOSE_PAREN, lexeme=")")],
         "sum", [1, 2]
     )
 ])
@@ -117,9 +117,9 @@ def test_parse_binary_expression(
             Token(lexeme="=", category=TokenCategory.OPERATOR),
             Token(lexeme="2", category=TokenCategory.NUMBER),
             Token(lexeme="print", category=TokenCategory.KEYWORD),
-            Token(lexeme="(", category=TokenCategory.PAREN),
+            Token(lexeme="(", category=TokenCategory.OPEN_PAREN),
             Token(lexeme="x", category=TokenCategory.IDENTIFIER),
-            Token(lexeme=")", category=TokenCategory.PAREN),
+            Token(lexeme=")", category=TokenCategory.CLOSE_PAREN),
         ],
         2  # Two statements: assignment and function call
     ),
@@ -129,9 +129,9 @@ def test_parse_binary_expression(
             Token(lexeme="=", category=TokenCategory.OPERATOR),
             Token(lexeme="5", category=TokenCategory.NUMBER),
             Token(lexeme="sum", category=TokenCategory.KEYWORD),
-            Token(lexeme="(", category=TokenCategory.PAREN),
+            Token(lexeme="(", category=TokenCategory.OPEN_PAREN),
             Token(lexeme="10", category=TokenCategory.NUMBER),
-            Token(lexeme=")", category=TokenCategory.PAREN),
+            Token(lexeme=")", category=TokenCategory.CLOSE_PAREN),
         ],
         2  # Two statements: assignment and function call
     )
