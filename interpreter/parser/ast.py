@@ -18,7 +18,7 @@ literal            ::= TokenCategory.NUMBER
 
 from abc import ABC
 from dataclasses import dataclass
-from .lexer.tokenizer import Token
+from ..lexer.tokenizer import Token
 
 @dataclass(frozen=True)
 class Statement(ABC):
