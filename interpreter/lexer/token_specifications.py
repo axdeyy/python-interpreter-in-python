@@ -30,3 +30,9 @@ TOKEN_SPECIFICATIONS = [
     TokenSpecification(TokenCategory.COMMA, r','),
     TokenSpecification(TokenCategory.MISMATCH, r'.'),
 ]
+
+# Build the combined regex pattern for all token specifications
+TOKEN_REGEX_PATTERNS = '|'.join(
+    f"(?P<{spec.category.name}>{spec.regex_pattern})"
+    for spec in TOKEN_SPECIFICATIONS
+)
