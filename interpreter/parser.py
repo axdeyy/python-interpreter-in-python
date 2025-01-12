@@ -47,7 +47,7 @@ class Parser:
         return Assignment(identifier_token.lexeme, expression)
 
     def _parse_expression(self) -> Expression:
-        ''' Expression: FunctionCall | BinaryExpression | Literal '''
+        ''' Expression: FunctionCall | BinaryExpr | Variable | Literal '''
         left = Expression()
         match self._current_token().category:
             case TokenCategory.KEYWORD:
