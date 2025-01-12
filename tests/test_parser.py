@@ -1,7 +1,5 @@
 # test/test_parser.py
 
-from ast import arguments
-from multiprocessing.reduction import steal_handle
 import pytest
 from interpreter.ast import (
     Assignment, BinaryExpression, FunctionCall, Literal, Variable
