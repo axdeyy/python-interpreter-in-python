@@ -93,13 +93,11 @@ class Parser:
 
     def _parse_arguments(self) -> list[Expression]:
         # Parse list of arguments
-        arguments = [self._parse_expression()]
-        while (
-            self._current_token().category
-            != TokenCategory.CLOSE_PAREN
-        ):
-            self._consume(TokenCategory.COMMA)
+        arguments = []
+        while self._current_token().category != TokenCategory.CLOSE_PAREN:
             arguments.append(self._parse_expression())
+            if self._current_token().category == TokenCategory.COMMA:
+                self._consume(TokenCategory.COMMA)
         return arguments
 
     def _parse_variable(self) -> Variable:
