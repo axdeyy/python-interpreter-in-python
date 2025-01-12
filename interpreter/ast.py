@@ -20,38 +20,38 @@ from abc import ABC
 from dataclasses import dataclass
 from .lexer import Token
 
-@dataclass
+@dataclass(frozen=True)
 class Statement(ABC):
     pass
 
-@dataclass
+@dataclass(frozen=True)
 class Program:
     statements: list[Statement]
 
-@dataclass
+@dataclass(frozen=True)
 class Expression(Statement):
     pass
 
-@dataclass
+@dataclass(frozen=True)
 class Assignment(Statement):
     identifier: Token
     expression: Expression
 
-@dataclass
+@dataclass(frozen=True)
 class BinaryExpression(Expression):
     left: Expression
     operator: Token
     right: Expression
 
-@dataclass
+@dataclass(frozen=True)
 class FunctionCall(Expression):
     name: Token
     arguments: list[Expression]
 
-@dataclass
+@dataclass(frozen=True)
 class Variable(Expression):
     name: Token
 
-@dataclass
+@dataclass(frozen=True)
 class Literal(Expression):
     value: int | str
