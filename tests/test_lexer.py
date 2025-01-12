@@ -1,7 +1,7 @@
 # test/test_lexer.py
 
 import pytest
-from interpreter.lexer.lexer import tokenize, Token, TokenCategory
+from interpreter.lexer.tokenizer import tokenize, Token, TokenCategory
 
 @pytest.mark.parametrize("source_code, expected_tokens", [
     ("print", [Token(category=TokenCategory.KEYWORD, lexeme="print")]),

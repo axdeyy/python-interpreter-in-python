@@ -1,6 +1,6 @@
 # main.py
 
-from interpreter.lexer import *
+from interpreter.lexer.tokenizer import *
 from interpreter.parser import *
 
 def test_tokenizer():

@@ -4,7 +4,7 @@ import pytest
 from interpreter.ast import (
     Assignment, BinaryExpression, FunctionCall, Literal, Variable
 )
-from interpreter.lexer.lexer import Token, TokenCategory
+from interpreter.lexer.tokenizer import Token, TokenCategory
 from interpreter.parser import Parser
 
 @pytest.mark.parametrize("tokens, expected_identifier, expected_value", [
