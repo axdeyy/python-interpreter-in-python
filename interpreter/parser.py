@@ -1,5 +1,6 @@
 # intepreter/parser.py
 
+from locale import currency
 from interpreter.ast import (
     BinaryExpression, FunctionCall, Program, Statement,
     Assignment, Expression, Literal, Variable
@@ -13,9 +14,8 @@ class Parser:
 
     def _skip_newlines(self):
         while (
-            self.current_token_idx < len(self.tokens)
-            and self.tokens[self.current_token_idx].category
-            == TokenCategory.NEWLINE
+            self._current_token() and 
+            self._current_token().category == TokenCategory.NEWLINE
         ):
             self._consume(TokenCategory.NEWLINE)
     
@@ -32,9 +32,8 @@ class Parser:
         return Program(statements)
 
     def _parse_statement(self) -> Statement:
-        token = self.tokens[self.current_token_idx]
         if (
-            token.category == TokenCategory.IDENTIFIER 
+            self._current_token().category == TokenCategory.IDENTIFIER 
             and self._peek_next_token().lexeme == '='
         ):
             return self._parse_assignment()
@@ -57,9 +56,8 @@ class Parser:
 
     def _parse_expression(self) -> Expression:
         ''' Expression: FunctionCall | BinaryExpression | Literal '''
-        token = self.tokens[self.current_token_idx]
         left = Expression()
-        match token.category:
+        match self._current_token().category:
             case TokenCategory.KEYWORD:
                 left = self._parse_function_call(True)
             case TokenCategory.IDENTIFIER:
@@ -75,12 +73,11 @@ class Parser:
                 left = self._parse_literal()
         
         # Check for binary expression
-        if self.current_token_idx < len(self.tokens):
-            next_token = self.tokens[self.current_token_idx]
-            if next_token and next_token.category == TokenCategory.OPERATOR:
-                operator = self._consume(TokenCategory.OPERATOR)
-                right = self._parse_expression()
-                return BinaryExpression(left, operator, right)
+        next_token = self._current_token()
+        if next_token and next_token.category == TokenCategory.OPERATOR:
+            operator = self._consume(TokenCategory.OPERATOR)
+            right = self._parse_expression()
+            return BinaryExpression(left, operator, right)
         
         return left
 
@@ -93,12 +90,12 @@ class Parser:
         arguments = self._parse_arguments()
         self._consume(TokenCategory.CLOSE_PAREN)
         return FunctionCall(function_name, arguments)
-    
+
     def _parse_arguments(self) -> list[Expression]:
         # Parse list of arguments
         arguments = [self._parse_expression()]
         while (
-            self.tokens[self.current_token_idx].category
+            self._current_token().category
             != TokenCategory.CLOSE_PAREN
         ):
             self._consume(TokenCategory.COMMA)
@@ -113,6 +110,12 @@ class Parser:
         token = self._consume(TokenCategory.NUMBER)
         return Literal(int(token.lexeme))
 
+    def _current_token(self) -> Token:
+        return (
+            self.tokens[self.current_token_idx]
+            if self.current_token_idx < len(self.tokens)
+            else None
+        )
     
     def _peek_next_token(self) -> Token:
         return (
