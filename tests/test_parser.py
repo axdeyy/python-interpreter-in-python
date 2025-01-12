@@ -4,7 +4,7 @@ import pytest
 from interpreter.ast import (
     Assignment, BinaryExpression, FunctionCall, Literal, Variable
 )
-from interpreter.lexer import Token, TokenCategory
+from interpreter.lexer.lexer import Token, TokenCategory
 from interpreter.parser import Parser
 
 @pytest.mark.parametrize("tokens, expected_identifier, expected_value", [
@@ -45,14 +45,14 @@ def test_parse_assignment(
         "print", [2]
     ),
     (
-        [Token(lexeme="sum", category=TokenCategory.IDENTIFIER),
+        [Token(lexeme="sum", category=TokenCategory.KEYWORD),
          Token(lexeme="(", category=TokenCategory.OPEN_PAREN),
          Token(lexeme="3", category=TokenCategory.NUMBER),
          Token(lexeme=")", category=TokenCategory.CLOSE_PAREN)],
         "sum", [3]
     ),
     (
-        [Token(category=TokenCategory.IDENTIFIER, lexeme="sum"),
+        [Token(category=TokenCategory.KEYWORD, lexeme="sum"),
         Token(category=TokenCategory.OPEN_PAREN, lexeme="("),
         Token(category=TokenCategory.NUMBER, lexeme=1),
         Token(category=TokenCategory.COMMA, lexeme=","),
@@ -137,7 +137,7 @@ def test_parse_binary_expression(
             Token(lexeme="y", category=TokenCategory.IDENTIFIER),
             Token(lexeme="=", category=TokenCategory.OPERATOR),
             Token(lexeme="5", category=TokenCategory.NUMBER),
-            Token(lexeme="sum", category=TokenCategory.IDENTIFIER),
+            Token(lexeme="sum", category=TokenCategory.KEYWORD),
             Token(lexeme="(", category=TokenCategory.OPEN_PAREN),
             Token(lexeme="10", category=TokenCategory.NUMBER),
             Token(lexeme=")", category=TokenCategory.CLOSE_PAREN),
