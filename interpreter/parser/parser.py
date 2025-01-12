@@ -1,10 +1,10 @@
 # intepreter/parser.py
 
-from interpreter.ast import (
+from interpreter.parser.ast import (
     BinaryExpression, FunctionCall, Program, Statement,
     Assignment, Expression, Literal, Variable
 )
-from .lexer.tokenizer import Token, TokenCategory
+from ..lexer.tokenizer import Token, TokenCategory
 
 class Parser:
     def __init__(self, tokens: list[Token]):
