@@ -79,7 +79,6 @@ class Parser:
         right = self._parse_expression()
         return BinaryExpression(left, operator, right)
 
-
     def _parse_function_call(self, keyword: bool) -> FunctionCall:
         function_name = self._consume(
             TokenCategory.KEYWORD if keyword else TokenCategory.IDENTIFIER
