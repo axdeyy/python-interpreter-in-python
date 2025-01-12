@@ -1,6 +1,5 @@
 # intepreter/parser.py
 
-from operator import le
 from interpreter.ast import (
     BinaryExpression, FunctionCall, Program, Statement,
     Assignment, Expression, Literal, Variable
