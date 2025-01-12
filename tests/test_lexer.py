@@ -54,19 +54,37 @@ from interpreter.lexer import tokenize, Token, TokenCategory
         Token(category=TokenCategory.NEWLINE, lexeme="\n")
     ]),
     ("\n\nz = x + y", [
+        Token(category=TokenCategory.NEWLINE, lexeme="\n"),
+        Token(category=TokenCategory.NEWLINE, lexeme="\n"),
         Token(category=TokenCategory.IDENTIFIER, lexeme="z"),
         Token(category=TokenCategory.OPERATOR, lexeme="="),
         Token(category=TokenCategory.IDENTIFIER, lexeme="x"),
         Token(category=TokenCategory.OPERATOR, lexeme="+"),
-        Token(category=TokenCategory.IDENTIFIER, lexeme="y"),
-        Token(category=TokenCategory.NEWLINE, lexeme="\n")
+        Token(category=TokenCategory.IDENTIFIER, lexeme="y")
     ]),
     ("\n\nz = x + y\n\n", [
+        Token(category=TokenCategory.NEWLINE, lexeme="\n"),
+        Token(category=TokenCategory.NEWLINE, lexeme="\n"),
         Token(category=TokenCategory.IDENTIFIER, lexeme="z"),
         Token(category=TokenCategory.OPERATOR, lexeme="="),
         Token(category=TokenCategory.IDENTIFIER, lexeme="x"),
         Token(category=TokenCategory.OPERATOR, lexeme="+"),
         Token(category=TokenCategory.IDENTIFIER, lexeme="y"),
+        Token(category=TokenCategory.NEWLINE, lexeme="\n"),
+        Token(category=TokenCategory.NEWLINE, lexeme="\n")
+    ]),
+    ("\nx = 10\nz = x + y\n\n", [
+        Token(category=TokenCategory.NEWLINE, lexeme="\n"),
+        Token(category=TokenCategory.IDENTIFIER, lexeme="x"),
+        Token(category=TokenCategory.OPERATOR, lexeme="="),
+        Token(category=TokenCategory.NUMBER, lexeme=10),
+        Token(category=TokenCategory.NEWLINE, lexeme="\n"),
+        Token(category=TokenCategory.IDENTIFIER, lexeme="z"),
+        Token(category=TokenCategory.OPERATOR, lexeme="="),
+        Token(category=TokenCategory.IDENTIFIER, lexeme="x"),
+        Token(category=TokenCategory.OPERATOR, lexeme="+"),
+        Token(category=TokenCategory.IDENTIFIER, lexeme="y"),
+        Token(category=TokenCategory.NEWLINE, lexeme="\n"),
         Token(category=TokenCategory.NEWLINE, lexeme="\n")
     ]),
 ])
