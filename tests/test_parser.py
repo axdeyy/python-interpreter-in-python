@@ -45,7 +45,7 @@ def test_parse_assignment(
         "print", [2]
     ),
     (
-        [Token(lexeme="sum", category=TokenCategory.KEYWORD),
+        [Token(lexeme="sum", category=TokenCategory.IDENTIFIER),
          Token(lexeme="(", category=TokenCategory.OPEN_PAREN),
          Token(lexeme="3", category=TokenCategory.NUMBER),
          Token(lexeme=")", category=TokenCategory.CLOSE_PAREN)],
@@ -137,7 +137,7 @@ def test_parse_binary_expression(
             Token(lexeme="y", category=TokenCategory.IDENTIFIER),
             Token(lexeme="=", category=TokenCategory.OPERATOR),
             Token(lexeme="5", category=TokenCategory.NUMBER),
-            Token(lexeme="sum", category=TokenCategory.KEYWORD),
+            Token(lexeme="sum", category=TokenCategory.IDENTIFIER),
             Token(lexeme="(", category=TokenCategory.OPEN_PAREN),
             Token(lexeme="10", category=TokenCategory.NUMBER),
             Token(lexeme=")", category=TokenCategory.CLOSE_PAREN),
