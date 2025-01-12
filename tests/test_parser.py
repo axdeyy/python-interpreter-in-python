@@ -1,7 +1,7 @@
 # test/test_parser.py
 
 import pytest
-from interpreter.ast import (
+from interpreter.parser.ast import (
     Assignment, BinaryExpression, FunctionCall, Literal, Variable
 )
 from interpreter.lexer.tokenizer import Token, TokenCategory
