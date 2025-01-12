@@ -1,6 +1,5 @@
 # intepreter/parser.py
 
-from locale import currency
 from interpreter.ast import (
     BinaryExpression, FunctionCall, Program, Statement,
     Assignment, Expression, Literal, Variable
