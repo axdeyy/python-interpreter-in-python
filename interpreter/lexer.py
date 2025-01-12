@@ -3,7 +3,6 @@
 import re
 from enum import Enum, auto
 from dataclasses import dataclass
-import token
 
 class TokenCategory(Enum):
     IDENTIFIER = auto()   # Identifiers (e.g. variable names)
