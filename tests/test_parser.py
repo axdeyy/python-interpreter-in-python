@@ -19,6 +19,12 @@ from interpreter.parser import Parser
          Token(lexeme="=", category=TokenCategory.OPERATOR),
          Token(lexeme="10", category=TokenCategory.NUMBER)],
         "y", 10
+    ),
+    (
+        [Token(lexeme="y", category=TokenCategory.IDENTIFIER),
+         Token(lexeme="=", category=TokenCategory.OPERATOR),
+         Token(lexeme='"hello"', category=TokenCategory.STRING)],
+        "y", '"hello"'
     )
 ])
 def test_parse_assignment(
