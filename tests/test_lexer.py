@@ -53,6 +53,14 @@ from interpreter.lexer import tokenize, Token, TokenCategory
         Token(category=TokenCategory.IDENTIFIER, lexeme="y"),
         Token(category=TokenCategory.NEWLINE, lexeme="\n")
     ]),
+    ("\n\nz = x + y", [
+        Token(category=TokenCategory.IDENTIFIER, lexeme="z"),
+        Token(category=TokenCategory.OPERATOR, lexeme="="),
+        Token(category=TokenCategory.IDENTIFIER, lexeme="x"),
+        Token(category=TokenCategory.OPERATOR, lexeme="+"),
+        Token(category=TokenCategory.IDENTIFIER, lexeme="y"),
+        Token(category=TokenCategory.NEWLINE, lexeme="\n")
+    ]),
 ])
 def test_tokenize_cases(
     source_code: str, expected_tokens: list[Token]
