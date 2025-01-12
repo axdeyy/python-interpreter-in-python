@@ -1,5 +1,7 @@
 # interpreter/parser/__init__.py
 
+from .parser import Parser
+
 """
 Parser package for interpreting tokenized source code.
 
