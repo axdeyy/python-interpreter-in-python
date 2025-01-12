@@ -61,8 +61,10 @@ class Parser:
                     left = self._parse_function_call(False)
                 else:
                     left = self._parse_variable()
+            case TokenCategory.STRING:
+                left = self._parse_string_literal()
             case TokenCategory.NUMBER:
-                left = self._parse_literal()
+                left = self._parse_numeric_literal()
         
         # Check for binary expression
         if (
@@ -99,8 +101,12 @@ class Parser:
     def _parse_variable(self) -> Variable:
         token = self._consume(TokenCategory.IDENTIFIER)
         return Variable(token)
+    
+    def _parse_string_literal(self) -> Literal:
+        token = self._consume(TokenCategory.STRING)
+        return Literal(token.lexeme)
 
-    def _parse_literal(self) -> Literal:
+    def _parse_numeric_literal(self) -> Literal:
         token = self._consume(TokenCategory.NUMBER)
         return Literal(int(token.lexeme))
 
