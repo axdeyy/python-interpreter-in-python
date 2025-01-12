@@ -1,11 +1,12 @@
 # main.py
 
+import token
 from interpreter.lexer.tokenizer import *
 from interpreter.parser import *
 
 def test_tokenizer():
     source_code = """
-    x = 0
+    x = "hello"
     y = 10
 
     f(x, y)
@@ -27,6 +28,7 @@ def test_parser(tokens: list[Token]):
 
 if __name__ == "__main__":
     tokens = test_tokenizer()
+    print(tokens)
     print(test_parser(tokens))
 
 
