@@ -1,4 +1,4 @@
-# ast.py
+# interpeter/parser/ast.py
 
 '''
 Python Subset Grammar (BNF):

@@ -1,4 +1,4 @@
-# intepreter/parser.py
+# intepreter/parser/parser.py
 
 from interpreter.parser.ast import (
     BinaryExpression, FunctionCall, Program, Statement,
