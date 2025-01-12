@@ -1,3 +1,5 @@
+# interpeter/lexer/token_specifications.py
+
 import re
 from dataclasses import dataclass
 from .token_categories import TokenCategory

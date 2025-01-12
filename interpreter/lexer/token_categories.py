@@ -1,3 +1,5 @@
+# interpeter/lexer/token_categories.py
+
 from enum import Enum, auto
 
 class TokenCategory(Enum):
