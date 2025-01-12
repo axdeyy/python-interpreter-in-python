@@ -21,6 +21,7 @@ KEYWORD_PATTERN = r'\b(?:' + '|'.join(map(re.escape, KEYWORDS)) + r')\b'
 TOKEN_SPECIFICATIONS = [
     TokenSpecification(TokenCategory.KEYWORD, KEYWORD_PATTERN),  # Dynamic keyword pattern
     TokenSpecification(TokenCategory.IDENTIFIER, r'[A-Za-z_]\w*'),
+    TokenSpecification(TokenCategory.STRING, r'"(?:\\.|[^\\"])*"'),
     TokenSpecification(TokenCategory.NUMBER, r'\d+'),
     TokenSpecification(TokenCategory.OPERATOR, r'[+=-]'),
     TokenSpecification(TokenCategory.OPEN_PAREN, r'\('),
