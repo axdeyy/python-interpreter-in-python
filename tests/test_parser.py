@@ -104,9 +104,9 @@ def test_parse_function_call(
 )
 def test_parse_binary_expression(
     tokens: list[Token],
-    expected_left: str,
+    expected_left: int | str,
     expected_operator: str,
-    expected_right: int
+    expected_right: int | str
 ) -> None:
     parser = Parser(tokens)
     program = parser.parse()
