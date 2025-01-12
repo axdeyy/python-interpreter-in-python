@@ -1,5 +1,6 @@
 # intepreter/parser.py
 
+from operator import le
 from interpreter.ast import (
     BinaryExpression, FunctionCall, Program, Statement,
     Assignment, Expression, Literal, Variable
@@ -65,13 +66,18 @@ class Parser:
                 left = self._parse_literal()
         
         # Check for binary expression
-        next_token = self._current_token()
-        if next_token and next_token.category == TokenCategory.OPERATOR:
-            operator = self._consume(TokenCategory.OPERATOR)
-            right = self._parse_expression()
-            return BinaryExpression(left, operator, right)
+        if (
+            self._current_token() and 
+            self._current_token().category == TokenCategory.OPERATOR
+        ):
+            return self._parse_binary_expression(left)
         
         return left
+    
+    def _parse_binary_expression(self, left: Expression) -> BinaryExpression:
+        operator = self._consume(TokenCategory.OPERATOR)
+        right = self._parse_expression()
+        return BinaryExpression(left, operator, right)
 
 
     def _parse_function_call(self, keyword: bool) -> FunctionCall:
