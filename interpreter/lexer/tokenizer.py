@@ -6,8 +6,6 @@ from .token_categories import TokenCategory
 from .token_specifications import TOKEN_REGEX_PATTERNS
 
 def tokenize(source_code: str) -> list[Token]:
-    # Build the combined regex pattern for all token specifications
-
     tokens = []
     
     # Use regex to find all tokens

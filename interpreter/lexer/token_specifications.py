@@ -15,11 +15,11 @@ KEYWORDS = {
 }
 
 # Build KEYWORD regex pattern
-keyword_pattern = r'\b(?:' + '|'.join(map(re.escape, KEYWORDS)) + r')\b'
+KEYWORD_PATTERN = r'\b(?:' + '|'.join(map(re.escape, KEYWORDS)) + r')\b'
 
 # Token specifications
 TOKEN_SPECIFICATIONS = [
-    TokenSpecification(TokenCategory.KEYWORD, keyword_pattern),  # Dynamic keyword pattern
+    TokenSpecification(TokenCategory.KEYWORD, KEYWORD_PATTERN),  # Dynamic keyword pattern
     TokenSpecification(TokenCategory.IDENTIFIER, r'[A-Za-z_]\w*'),
     TokenSpecification(TokenCategory.NUMBER, r'\d+'),
     TokenSpecification(TokenCategory.OPERATOR, r'[+=-]'),
