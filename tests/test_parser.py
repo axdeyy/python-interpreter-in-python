@@ -61,7 +61,14 @@ def test_parse_assignment(
         Token(category=TokenCategory.NUMBER, lexeme=2),
         Token(category=TokenCategory.CLOSE_PAREN, lexeme=")")],
         "sum", [1, 2]
-    )
+    ),
+    (
+        [Token(lexeme="f", category=TokenCategory.IDENTIFIER),
+         Token(lexeme="(", category=TokenCategory.OPEN_PAREN),
+         Token(lexeme=")", category=TokenCategory.CLOSE_PAREN)],
+        "f", []
+    ),
+
 ])
 def test_parse_function_call(
     tokens: list[Token],
