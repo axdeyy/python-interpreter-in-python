@@ -24,7 +24,7 @@ from interpreter.parser import Parser
 def test_parse_assignment(
     tokens: list[Token],
     expected_identifier: str,
-    expected_value: int
+    expected_value: int | str
 ) -> None:
     parser = Parser(tokens)
     program = parser.parse()
