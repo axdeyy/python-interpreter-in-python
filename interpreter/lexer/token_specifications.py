@@ -4,7 +4,7 @@ import re
 from dataclasses import dataclass
 from .token_categories import TokenCategory
 
-@dataclass
+@dataclass(frozen=True)
 class TokenSpecification:
     category: TokenCategory
     regex_pattern: str
