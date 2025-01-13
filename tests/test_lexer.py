@@ -87,6 +87,11 @@ from interpreter.lexer.tokenizer import tokenize, Token, TokenCategory
         Token(category=TokenCategory.NEWLINE, lexeme="\n"),
         Token(category=TokenCategory.NEWLINE, lexeme="\n")
     ]),
+    ('x = "hello"', [
+        Token(category=TokenCategory.IDENTIFIER, lexeme='x'),
+        Token(category=TokenCategory.OPERATOR, lexeme='='),
+        Token(category=TokenCategory.STRING, lexeme='"hello"'),
+    ])
 ])
 def test_tokenize_cases(
     source_code: str, expected_tokens: list[Token]
