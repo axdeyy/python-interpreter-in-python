@@ -108,6 +108,11 @@ def test_tokenize_cases(
         "x@2",
         SyntaxError,
         "Error: Could not find a token category for the lexeme: @"
+    ),
+    (
+        """ "hello' """,
+        SyntaxError,
+        'Error: Could not find a token category for the lexeme: "'
     )
 ])
 def test_tokenize_exceptions(
