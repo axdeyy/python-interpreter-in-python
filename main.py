@@ -1,6 +1,5 @@
 # main.py
 
-import token
 from interpreter.lexer.tokenizer import *
 from interpreter.parser import *
 
