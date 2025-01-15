@@ -29,6 +29,7 @@ source_code = """
 The lexer currently converts this to the following list of tokens:
 
 ```py
+[
  Token(category=<TokenCategory.NEWLINE: 9>, lexeme='\n'),
  Token(category=<TokenCategory.IDENTIFIER: 1>, lexeme='x'),
  Token(category=<TokenCategory.OPERATOR: 5>, lexeme='='),
