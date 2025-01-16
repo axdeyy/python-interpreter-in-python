@@ -96,6 +96,11 @@ from interpreter.lexer.tokenizer import tokenize, Token, TokenCategory
         Token(category=TokenCategory.IDENTIFIER, lexeme='x'),
         Token(category=TokenCategory.OPERATOR, lexeme='='),
         Token(category=TokenCategory.STRING, lexeme="'hello'"),
+    ]),
+    ("input()",[
+        Token(category=TokenCategory.KEYWORD, lexeme="input"),
+        Token(category=TokenCategory.OPEN_PAREN, lexeme='('),
+        Token(category=TokenCategory.CLOSE_PAREN, lexeme=')')
     ])
 ])
 def test_tokenize_cases(
