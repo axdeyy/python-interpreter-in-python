@@ -72,6 +72,12 @@ def test_parse_assignment(
          Token(lexeme=")", category=TokenCategory.CLOSE_PAREN)],
         "f", []
     ),
+    (
+        [Token(lexeme="input", category=TokenCategory.KEYWORD),
+         Token(lexeme="(", category=TokenCategory.OPEN_PAREN),
+         Token(lexeme=")", category=TokenCategory.CLOSE_PAREN)],
+        "input", []
+    ),
 
 ])
 def test_parse_function_call(
