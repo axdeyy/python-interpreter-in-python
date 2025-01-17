@@ -15,6 +15,7 @@ Working Example:
 source_code = """
     x = "hello"
     y = 10
+    input()
 
     f(x, y)
     
@@ -39,6 +40,9 @@ The lexer currently converts this to the following list of tokens:
  Token(category=<TokenCategory.OPERATOR: 5>, lexeme='='),
  Token(category=<TokenCategory.NUMBER: 4>, lexeme=10),
  Token(category=<TokenCategory.NEWLINE: 9>, lexeme='\n'),
+ Token(category=<TokenCategory.KEYWORD: 2>, lexeme='input'),
+ Token(category=<TokenCategory.OPEN_PAREN: 6>, lexeme='('),
+ Token(category=<TokenCategory.CLOSE_PAREN: 7>, lexeme=')'),
  Token(category=<TokenCategory.NEWLINE: 9>, lexeme='\n'),
  Token(category=<TokenCategory.IDENTIFIER: 1>, lexeme='f'),
  Token(category=<TokenCategory.OPEN_PAREN: 6>, lexeme='('),
@@ -77,6 +81,10 @@ The parser receives this list of tokens as input and produces the following AST 
 Program(statements=[
  Assignment(identifier='x', expression=Literal(value='"hello"')),
  Assignment(identifier='y', expression=Literal(value=10)),
+ FunctionCall(
+    name=Token(category=<TokenCategory.KEYWORD: 2>, lexeme='input'),
+    arguments=[]
+ ),
  FunctionCall(
     name=Token(category=<TokenCategory.IDENTIFIER: 1>, lexeme='f'),
     arguments=[
