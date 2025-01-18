@@ -12,7 +12,8 @@ class TokenSpecification:
 KEYWORDS = {
     "print",
     "sum",
-    "input"
+    "input",
+    "max"
 }
 
 # Build KEYWORD regex pattern
