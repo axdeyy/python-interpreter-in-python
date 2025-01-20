@@ -6,6 +6,18 @@ from interpreter.parser.ast import (
 )
 from ..lexer.tokenizer import Token, TokenCategory
 
+# Define operator precedence levels
+OPERATOR_PRECEDENCE = {
+    '+': 1,
+    '-': 1,
+    '*': 2,
+    '/': 2,
+    '%': 2,
+    '^': 3,  # Exponentiation
+    '&&': 0, # Logical AND (lower precedence)
+    '||': 0, # Logical OR
+}
+
 class Parser:
     def __init__(self, tokens: list[Token]):
         self.tokens = tokens
@@ -47,38 +59,53 @@ class Parser:
         return Assignment(identifier_token.lexeme, expression)
 
     def _parse_expression(self) -> Expression:
-        ''' Expression: FunctionCall | BinaryExpr | Variable | Literal '''
-        left = Expression()
-        match self._current_token().category:
-            case TokenCategory.KEYWORD:
-                left = self._parse_function_call(True)
-            case TokenCategory.IDENTIFIER:
-                if (
-                    self._peek_next_token()
-                    and self._peek_next_token().category
-                    == TokenCategory.OPEN_PAREN
-                ):
-                    left = self._parse_function_call(False)
-                else:
-                    left = self._parse_variable()
-            case TokenCategory.STRING:
-                left = self._parse_string_literal()
-            case TokenCategory.NUMBER:
-                left = self._parse_numeric_literal()
-        
-        # Check for binary expression
-        if (
-            self._current_token() and 
-            self._current_token().category == TokenCategory.OPERATOR
+        return self._parse_binary_expression()
+
+    def _parse_binary_expression(self, min_precedence: int = 0) -> Expression:
+        # First parse the left-hand side as a primary expression
+        left = self._parse_primary_expression()
+
+        # Keep going as long as we find operators with precedence >= min_precedence
+        while (
+            self._current_token() and
+            self._current_token().category == TokenCategory.OPERATOR and
+            self.get_precedence(self._current_token().lexeme) >= min_precedence
         ):
-            return self._parse_binary_expression(left)
+            operator = self._current_token()
+            current_precedence = self.get_precedence(operator.lexeme)
+            
+            # Consume the operator
+            self._consume(TokenCategory.OPERATOR)
+            
+            # Parse the right side with a higher precedence to ensure proper associativity
+            right = self._parse_binary_expression(current_precedence + 1)
+            
+            # Create a new binary expression
+            left = BinaryExpression(left=left, operator=operator, right=right)
         
         return left
-    
-    def _parse_binary_expression(self, left: Expression) -> BinaryExpression:
-        operator = self._consume(TokenCategory.OPERATOR)
-        right = self._parse_expression()
-        return BinaryExpression(left, operator, right)
+
+    def _parse_primary_expression(self) -> Expression:
+        '''Parse primary expressions (literals, variables, function calls)'''
+        match self._current_token().category:
+            case TokenCategory.KEYWORD:
+                return self._parse_function_call(True)
+            case TokenCategory.IDENTIFIER:
+                if (
+                    self._peek_next_token() and
+                    self._peek_next_token().category == TokenCategory.OPEN_PAREN
+                ):
+                    return self._parse_function_call(False)
+                return self._parse_variable()
+            case TokenCategory.STRING:
+                return self._parse_string_literal()
+            case TokenCategory.NUMBER:
+                return self._parse_numeric_literal()
+            case _:
+                raise SyntaxError(f"Unexpected token {self._current_token()}")
+        
+    def get_precedence(self, operator: str) -> int:
+        return OPERATOR_PRECEDENCE.get(operator, -1)  # Default -1 for unknown operators
 
     def _parse_function_call(self, keyword: bool) -> FunctionCall:
         function_name = self._consume(
