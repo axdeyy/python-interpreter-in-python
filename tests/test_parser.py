@@ -105,37 +105,105 @@ def test_parse_function_call(
 
 
 @pytest.mark.parametrize(
-    "tokens, expected_left, expected_operator, expected_right", [
+    "tokens, expected_ast", [
+        # Test 1: Basic addition
         (
             [Token(lexeme="x", category=TokenCategory.IDENTIFIER),
              Token(lexeme="+", category=TokenCategory.OPERATOR),
              Token(lexeme="2", category=TokenCategory.NUMBER)],
-            "x", "+", 2
+            BinaryExpression(
+                left=Variable(name=Token(lexeme="x", category=TokenCategory.IDENTIFIER)),
+                operator=Token(lexeme="+", category=TokenCategory.OPERATOR),
+                right=Literal(value=2)
+            )
         ),
+        # Test 2: Basic subtraction
         (
             [Token(lexeme="a", category=TokenCategory.IDENTIFIER),
              Token(lexeme="-", category=TokenCategory.OPERATOR),
              Token(lexeme="3", category=TokenCategory.NUMBER)],
-            "a", "-", 3
+            BinaryExpression(
+                left=Variable(name=Token(lexeme="a", category=TokenCategory.IDENTIFIER)),
+                operator=Token(lexeme="-", category=TokenCategory.OPERATOR),
+                right=Literal(value=3)
+            )
+        ),
+        # Test 3: Multiplication
+        (
+            [Token(lexeme="y", category=TokenCategory.IDENTIFIER),
+             Token(lexeme="*", category=TokenCategory.OPERATOR),
+             Token(lexeme="4", category=TokenCategory.NUMBER)],
+            BinaryExpression(
+                left=Variable(name=Token(lexeme="y", category=TokenCategory.IDENTIFIER)),
+                operator=Token(lexeme="*", category=TokenCategory.OPERATOR),
+                right=Literal(value=4)
+            )
+        ),
+        # Test 4: Division
+        (
+            [Token(lexeme="z", category=TokenCategory.IDENTIFIER),
+             Token(lexeme="/", category=TokenCategory.OPERATOR),
+             Token(lexeme="5", category=TokenCategory.NUMBER)],
+            BinaryExpression(
+                left=Variable(name=Token(lexeme="z", category=TokenCategory.IDENTIFIER)),
+                operator=Token(lexeme="/", category=TokenCategory.OPERATOR),
+                right=Literal(value=5)
+            )
+        ),
+        # Test 5: Exponentiation
+        (
+            [Token(lexeme="b", category=TokenCategory.IDENTIFIER),
+             Token(lexeme="^", category=TokenCategory.OPERATOR),
+             Token(lexeme="2", category=TokenCategory.NUMBER)],
+            BinaryExpression(
+                left=Variable(name=Token(lexeme="b", category=TokenCategory.IDENTIFIER)),
+                operator=Token(lexeme="^", category=TokenCategory.OPERATOR),
+                right=Literal(value=2)
+            )
+        ),
+        # Test 6: Nested binary expressions (equal precedence operator)
+        (
+            [Token(lexeme="a", category=TokenCategory.IDENTIFIER),
+             Token(lexeme="+", category=TokenCategory.OPERATOR),
+             Token(lexeme="b", category=TokenCategory.IDENTIFIER),
+             Token(lexeme="*", category=TokenCategory.OPERATOR),
+             Token(lexeme="c", category=TokenCategory.IDENTIFIER)],
+            BinaryExpression(
+                left=Variable(name=Token(lexeme="a", category=TokenCategory.IDENTIFIER)),
+                operator=Token(lexeme="+", category=TokenCategory.OPERATOR),
+                right=BinaryExpression(
+                    left=Variable(name=Token(lexeme="b", category=TokenCategory.IDENTIFIER)),
+                    operator=Token(lexeme="*", category=TokenCategory.OPERATOR),
+                    right=Variable(name=Token(lexeme="c", category=TokenCategory.IDENTIFIER))
+                )
+            )
+        ),
+        # Test 7: Nested binary expressions (higher precedence operators)
+        (
+            [Token(lexeme="a", category=TokenCategory.IDENTIFIER),
+             Token(lexeme="*", category=TokenCategory.OPERATOR),
+             Token(lexeme="b", category=TokenCategory.IDENTIFIER),
+             Token(lexeme="+", category=TokenCategory.OPERATOR),
+             Token(lexeme="c", category=TokenCategory.IDENTIFIER)],
+            BinaryExpression(
+                left=BinaryExpression(
+                    left=Variable(name=Token(lexeme="a", category=TokenCategory.IDENTIFIER)),
+                    operator=Token(lexeme="*", category=TokenCategory.OPERATOR),
+                    right=Variable(name=Token(lexeme="b", category=TokenCategory.IDENTIFIER))
+                ),
+                operator=Token(lexeme="+", category=TokenCategory.OPERATOR),
+                right=Variable(name=Token(lexeme="c", category=TokenCategory.IDENTIFIER))
+            )
         )
     ]
 )
-def test_parse_binary_expression(
-    tokens: list[Token],
-    expected_left: int | str,
-    expected_operator: str,
-    expected_right: int | str
-) -> None:
+def test_parse_binary_expression(tokens: list[Token], expected_ast: BinaryExpression) -> None:
     parser = Parser(tokens)
     program = parser.parse()
     statement = program.statements[0]
 
-    assert isinstance(statement, BinaryExpression)
-    assert isinstance(statement.left, Variable)
-    assert statement.left.name.lexeme == expected_left
-    assert statement.operator.lexeme == expected_operator
-    assert isinstance(statement.right, Literal)
-    assert statement.right.value == expected_right
+    assert statement == expected_ast
+
 
 @pytest.mark.parametrize("tokens, num_statements", [
     (
